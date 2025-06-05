@@ -291,6 +291,9 @@ function submitLeadToBackend(leadData) {
             // Log the lead data to console in debug mode
             if (window.location.search.includes('debug=1')) {
                 console.log('📨 Lead Data Submission:', leadData);
+                // Lead lokal speichern
+saveLeadLocally(leadData);
+
             }
             
             // Generate affiliate URL
