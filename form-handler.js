@@ -233,10 +233,10 @@ function handleFormSubmit(event) {
                 // Track successful submission
                 trackLeadSubmission(enrichedLead, response);
                 
-                // Redirect to affiliate or thank you page
-                setTimeout(() => {
-                    window.location.href = response.redirect_url || '/danke';
-                }, 500);
+// DEBUG: Weiterleitung deaktiviert
+console.log('🎯 Weiterleitung deaktiviert für Debugging');
+console.log('Redirect URL wäre:', response.redirect_url);
+alert('Lead erfolgreich verarbeitet! (Debug-Modus)');
             } else {
                 handleSubmissionError(response.error || 'Ein unbekannter Fehler ist aufgetreten');
             }
@@ -292,7 +292,9 @@ function submitLeadToBackend(leadData) {
             if (window.location.search.includes('debug=1')) {
                 console.log('📨 Lead Data Submission:', leadData);
                 // Lead lokal speichern
+console.log('🔍 Versuche Lead zu speichern:', leadData);
 saveLeadLocally(leadData);
+console.log('✅ Lead gespeichert');
 
             }
             
