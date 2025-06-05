@@ -1,7 +1,1 @@
-# Netlify configuration file
-# Simple configuration to handle SPA routing
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
