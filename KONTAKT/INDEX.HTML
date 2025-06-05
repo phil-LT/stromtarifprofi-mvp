@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Stromtarifprofi.de</title>
+    <meta name="description" content="Kontaktieren Sie das Team von Stromtarifprofi.de - Wir helfen Ihnen gerne bei Fragen zu Stromtarifen und unserem Vergleichsservice">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            background-color: #0066cc;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-contact {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-top-contact span {
+            margin-right: 20px;
+        }
+        
+        .header-top-utilities {
+            display: flex;
+        }
+        
+        .header-top-utilities a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: opacity 0.3s;
+        }
+        
+        .header-top-utilities a:hover {
+            opacity: 0.8;
+        }
+        
+        .header-main {
+            padding: 15px 0;
+        }
+        
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+        
+        .main-nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .main-nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .main-nav ul li a.active {
+            color: #0066cc;
+        }
+        
+        /* Content Styles */
+        .page-header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .content-section h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .content-section p {
+            margin-bottom: 20px;
+        }
+        
+        /* Contact Layout */
+        .contact-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+        
+        .contact-info .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info .contact-method span {
+            width: 40px;
+            height: 40px;
+            background: #f0f7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+            color: #0066cc;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* DSGVO Compliance */
+        .dsgvo-section {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .dsgvo-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .dsgvo-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 4px;
+            transform: scale(1.1);
+        }
+        
+        .dsgvo-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .dsgvo-text a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .dsgvo-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding-right: 20px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #0066cc;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #999;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                width: 100%;
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-contact">
+                    <span>📞 Kundenservice: 0800-12345678</span>
+                    <span>🕒 Mo-Fr 8-20 Uhr</span>
+                </div>
+                <div class="header-top-utilities">
+                    <a href="#">Login</a>
+                    <a href="#">Merkliste</a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="../index.html" class="logo">stromtarifprofi.de</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="../oekostrom/index.html">Ökostrom</a></li>
+                        <li><a href="../ratgeber/index.html">Ratgeber</a></li>
+                        <li><a href="../ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="../faq/index.html">FAQ</a></li>
+                        <li><a href="index.html" class="active">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Kontakt</h1>
+            <p>Wir sind für Sie da - Nehmen Sie Kontakt mit uns auf</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="container">
+        <div class="content-section">
+            <h2>Kontaktieren Sie uns</h2>
+            <p>Haben Sie Fragen zu unserem Stromtarifvergleich oder benötigen Sie Hilfe bei der Auswahl des passenden Tarifs? Unser Team steht Ihnen gerne zur Verfügung.</p>
+            
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <h3>Kontaktinformationen</h3>
+                    
+                    <div class="contact-method">
+                        <span>📞</span>
+                        <div>
+                            <strong>Telefon</strong><br>
+                            0800-12345678<br>
+                            <small>Mo-Fr 8-20 Uhr</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <span>✉️</span>
+                        <div>
+                            <strong>E-Mail</strong><br>
+                            info@stromtarifprofi.de<br>
+                            <small>Antwort innerhalb von 24 Stunden</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <span>🏢</span>
+                        <div>
+                            <strong>Adresse</strong><br>
+                            [Straße, Hausnummer]<br>
+                            [PLZ, Ort]
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">Geschäftszeiten</h3>
+                    <p>
+                        <strong>Montag - Freitag:</strong> 8:00 - 20:00 Uhr<br>
+                        <strong>Samstag:</strong> Geschlossen<br>
+                        <strong>Sonntag:</strong> Geschlossen
+                    </p>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Kontaktformular</h3>
+                    <p>Füllen Sie das Formular aus, und wir werden uns schnellstmöglich bei Ihnen melden.</p>
+                    
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Ihr Name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-Mail *</label>
+                            <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefon">Telefon (optional)</label>
+                            <input type="tel" id="telefon" name="telefon" placeholder="Ihre Telefonnummer">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="betreff">Betreff *</label>
+                            <input type="text" id="betreff" name="betreff" required placeholder="Betreff Ihrer Anfrage">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nachricht">Nachricht *</label>
+                            <textarea id="nachricht" name="nachricht" required placeholder="Ihre Nachricht an uns"></textarea>
+                        </div>
+                        
+                        <!-- DSGVO Compliance -->
+                        <div class="dsgvo-section">
+                            <div class="dsgvo-checkbox">
+                                <input type="checkbox" id="dsgvo" name="dsgvo" required>
+                                <div class="dsgvo-text">
+                                    Ich stimme der <a href="../datenschutz/index.html" target="_blank">Datenschutzerklärung</a> zu und erlaube die Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage. *
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Nachricht senden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Stromtarifprofi.de</h3>
+                    <p>Ihr unabhängiger Stromtarifvergleich</p>
+                    <p>Über 12.000 Tarife von mehr als 1.100 Anbietern im Vergleich</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Schnellzugriff</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="../oekostrom/index.html">Ökostrom</a></li>
+                        <li><a href="../ratgeber/index.html">Ratgeber</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Informationen</h3>
+                    <ul>
+                        <li><a href="../ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="../faq/index.html">FAQ</a></li>
+                        <li><a href="index.html" class="active">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="../impressum/index.html">Impressum</a></li>
+                        <li><a href="../datenschutz/index.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Stromtarifprofi.de - Alle Rechte vorbehalten</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
