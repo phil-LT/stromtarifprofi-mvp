@@ -1,7 +1,7 @@
-// Enhanced Form Handler with LeadHub Professional API Integration
-// Version: 2.0 - Direct API Integration
+// Enhanced Form Handler with LeadHub Professional API Integration + Multi-Step Functionality
+// Version: 2.1 - Complete Integration with Original Features
 
-console.log('🚀 Form Handler v2.0 - LeadHub API Integration loaded');
+console.log('🚀 Form Handler v2.1 - LeadHub API + Multi-Step loaded');
 
 // Konfiguration
 const CONFIG = {
@@ -10,6 +10,10 @@ const CONFIG = {
     FALLBACK_ENABLED: true
 };
 
+// Multi-step form navigation
+let currentStep = 1;
+const totalSteps = 3;
+
 // Debug-Logging
 function debugLog(message, data = null) {
     if (CONFIG.DEBUG_MODE) {
@@ -17,7 +21,154 @@ function debugLog(message, data = null) {
     }
 }
 
-// Lead-Daten sammeln und anreichern
+// Initialize form functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initFormSteps();
+    initCookieBanner();
+    calculateSavings();
+    
+    // Set up form submission
+    const leadForm = document.getElementById('leadForm');
+    if (leadForm) {
+        leadForm.addEventListener('submit', handleFormSubmit);
+        debugLog('✅ Form-Handler initialisiert');
+    } else {
+        console.warn('⚠️ Lead-Formular nicht gefunden');
+    }
+});
+
+// Multi-step form navigation
+function initFormSteps() {
+    // Show first step initially
+    showStep(currentStep);
+    
+    // Update progress indicators if they exist
+    updateProgress();
+}
+
+function showStep(step) {
+    // Hide all steps
+    document.querySelectorAll('.form-step').forEach(el => {
+        el.style.display = 'none';
+    });
+    
+    // Show current step
+    const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+    if (currentStepEl) {
+        currentStepEl.style.display = 'block';
+    }
+    
+    // Update progress indicators if they exist
+    updateProgress();
+}
+
+function updateProgress() {
+    const progressIndicators = document.querySelectorAll('.progress-step');
+    progressIndicators.forEach((indicator, index) => {
+        if (index < currentStep) {
+            indicator.classList.add('completed');
+            indicator.classList.remove('active');
+        } else if (index === currentStep - 1) {
+            indicator.classList.add('active');
+            indicator.classList.remove('completed');
+        } else {
+            indicator.classList.remove('active', 'completed');
+        }
+    });
+}
+
+// Cookie banner functionality
+function initCookieBanner() {
+    const banner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const rejectBtn = document.getElementById('rejectCookies');
+    
+    // Show banner if no consent given
+    if (!localStorage.getItem('cookieConsent')) {
+        if (banner) banner.style.display = 'block';
+    }
+    
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            if (banner) banner.style.display = 'none';
+            
+            // Initialize analytics if accepted
+            if (typeof gtag !== 'undefined') {
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted'
+                });
+            }
+        });
+    }
+    
+    if (rejectBtn) {
+        rejectBtn.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'rejected');
+            if (banner) banner.style.display = 'none';
+        });
+    }
+}
+
+// Calculate savings functionality
+function calculateSavings() {
+    const verbrauchInput = document.querySelector('input[name="verbrauch"]');
+    if (verbrauchInput) {
+        verbrauchInput.addEventListener('input', function() {
+            const verbrauch = parseInt(this.value) || 3500;
+            const currentCost = Math.round(verbrauch * 0.35);
+            const optimizedCost = Math.round(verbrauch * 0.25);
+            const savings = currentCost - optimizedCost;
+            
+            // Update savings display
+            const currentCostEl = document.querySelector('.current-cost');
+            const optimizedCostEl = document.querySelector('.optimized-cost');
+            const savingsEl = document.querySelector('.savings-amount');
+            
+            if (currentCostEl) currentCostEl.textContent = `€${currentCost}`;
+            if (optimizedCostEl) optimizedCostEl.textContent = `€${optimizedCost}`;
+            if (savingsEl) savingsEl.textContent = `€${savings}`;
+        });
+    }
+}
+
+// Navigation functions
+function nextStep() {
+    if (validateCurrentStep()) {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+    }
+}
+
+function validateCurrentStep() {
+    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    if (!currentStepEl) return true;
+    
+    const requiredFields = currentStepEl.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.classList.add('error');
+            isValid = false;
+        } else {
+            field.classList.remove('error');
+        }
+    });
+    
+    return isValid;
+}
+
+// Lead data collection
 function collectLeadData() {
     const formData = new FormData(document.getElementById('leadForm'));
     
@@ -40,7 +191,7 @@ function collectLeadData() {
     return leadData;
 }
 
-// Lead an LeadHub Professional API senden
+// Lead submission to LeadHub API
 async function submitLeadToLeadHub(leadData) {
     debugLog('Sende Lead an LeadHub API...', leadData);
     
@@ -85,7 +236,7 @@ async function submitLeadToLeadHub(leadData) {
     }
 }
 
-// Lokale Lead-Speicherung (Fallback)
+// Local lead storage (fallback)
 function saveLeadLocally(leadData) {
     try {
         let leads = JSON.parse(localStorage.getItem('leads') || '[]');
@@ -101,7 +252,7 @@ function saveLeadLocally(leadData) {
     }
 }
 
-// Affiliate-Routing bestimmen (Client-seitig als Fallback)
+// Affiliate routing determination
 function determineAffiliateRouting(leadData) {
     // Lead-Score berechnen
     let score = 50;
@@ -139,15 +290,14 @@ function determineAffiliateRouting(leadData) {
     }
 }
 
-// Hauptfunktion: Lead-Submission
-async function submitLead( ) {
+// Form submission handler
+async function handleFormSubmit(e ) {
+    e.preventDefault();
     debugLog('🚀 Lead-Submission gestartet');
     
     try {
-        // Formular-Validierung
-        const form = document.getElementById('leadForm');
-        if (!form.checkValidity()) {
-            form.reportValidity();
+        // Final validation
+        if (!validateCurrentStep()) {
             return;
         }
         
@@ -167,7 +317,7 @@ async function submitLead( ) {
             debugLog('Lead erfolgreich verarbeitet:', response);
             
             // Analytics-Event senden (falls verfügbar)
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && localStorage.getItem('cookieConsent') === 'accepted') {
                 gtag('event', 'lead_submission', {
                     'event_category': 'Lead',
                     'event_label': response.affiliate,
@@ -206,7 +356,7 @@ async function submitLead( ) {
     }
 }
 
-// Admin-Funktionen für lokale Lead-Verwaltung
+// Admin functions for local lead management
 function showAllLeads() {
     const leads = JSON.parse(localStorage.getItem('leads') || '[]');
     console.table(leads);
@@ -234,24 +384,10 @@ function createLeadAdminPanel() {
     return stats;
 }
 
-// Event-Listener für Formular-Submission
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('leadForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitLead();
-        });
-        
-        debugLog('✅ Form-Handler initialisiert');
-    } else {
-        console.warn('⚠️ Lead-Formular nicht gefunden');
-    }
-});
-
-// Globale Funktionen für Console-Zugriff
+// Global functions for console access
 window.showAllLeads = showAllLeads;
 window.createLeadAdminPanel = createLeadAdminPanel;
-window.submitLead = submitLead;
+window.nextStep = nextStep;
+window.prevStep = prevStep;
 
-debugLog('🎯 Form Handler v2.0 vollständig geladen');
+debugLog('🎯 Form Handler v2.1 vollständig geladen');
