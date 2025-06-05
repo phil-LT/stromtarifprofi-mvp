@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stromtarifprofi.de - MVP Enhanced Lead Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>🍪 Wir verwenden Cookies für Affiliate-Tracking und zur Verbesserung Ihrer Erfahrung.</p>
+            <div class="cookie-buttons">
+                <button onclick="acceptCookies()" class="btn-accept">Alle akzeptieren</button>
+                <button onclick="rejectCookies()" class="btn-reject">Nur notwendige</button>
+                <a href="/datenschutz" class="cookie-link">Datenschutz</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>stromtarifprofi.de</h1>
+                    <span class="tagline">Ihr unabhängiger Stromtarifvergleich</span>
+                </div>
+                <div class="header-info">
+                    <span>☎ Kundenservice: 0800-123456789</span>
+                    <span>⏰ Mo-Fr: 8-20 Uhr</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Bis zu 720€ im Jahr bei Stromkosten sparen – unabhängig & kostenlos vergleichen</h2>
+                <p class="hero-subtitle">Über 12.000 Tarife von mehr als 1.100 Stromanbietern im Vergleich – in nur 3 Minuten zum günstigeren Stromtarif</p>
+                
+                <div class="trust-indicators">
+                    <span>✓ 100% kostenlos</span>
+                    <span>✓ Unverbindlich</span>
+                    <span>✓ In 3 Minuten erledigt</span>
+                    <span>✓ Über 250.000 zufriedene Kunden</span>
+                </div>
+            </section>
+
+            <!-- Enhanced Lead Form -->
+            <section class="form-section">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h3>Finden Sie Ihren perfekten Stromtarif</h3>
+                        <p>Intelligente Tarifempfehlung basierend auf Ihren Bedürfnissen</p>
+                    </div>
+                    
+                    <form id="leadForm" onsubmit="handleFormSubmit(event)">
+                        <!-- Step 1: Basic Data -->
+                        <div class="form-step active" id="step1">
+                            <h4>📍 Ihre Grunddaten</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="plz">Postleitzahl *</label>
+                                    <input type="text" id="plz" name="plz" placeholder="z.B. 10115" required 
+                                           pattern="[0-9]{5}" title="Bitte geben Sie eine gültige 5-stellige PLZ ein"
+                                           onchange="updateRegionalInfo()">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="verbrauch">Jahresverbrauch in kWh *</label>
+                                    <input type="number" id="verbrauch" name="verbrauch" placeholder="z.B. 3500" 
+                                           min="1000" max="15000" required onchange="calculateSavings()">
+                                    <small>Tipp: Schauen Sie auf Ihre letzte Stromrechnung</small>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="haushaltsgroesse">Haushaltsgröße</label>
+                                <select id="haushaltsgroesse" name="haushaltsgroesse" onchange="updateConsumptionHint()">
+                                    <option value="">Bitte wählen</option>
+                                    <option value="1">1 Person (ca. 2.000 kWh/Jahr)</option>
+                                    <option value="2">2 Personen (ca. 3.500 kWh/Jahr)</option>
+                                    <option value="3-4">3-4 Personen (ca. 4.500 kWh/Jahr)</option>
+                                    <option value="5+">5+ Personen (ca. 6.000+ kWh/Jahr)</option>
+                                </select>
+                            </div>
+                            
+                            <button type="button" onclick="nextStep()" class="btn-next">Weiter →</button>
+                        </div>
+
+                        <!-- Step 2: Preferences -->
+                        <div class="form-step" id="step2">
+                            <h4>🏠 Ihre Präferenzen</h4>
+                            
+                            <div class="form-group">
+                                <label for="wohnsituation">Wohnsituation</label>
+                                <select id="wohnsituation" name="wohnsituation">
+                                    <option value="">Bitte wählen</option>
+                                    <option value="mieter">Mieter</option>
+                                    <option value="eigentuemer">Eigentümer</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Besondere Anforderungen</label>
+                                <div class="checkbox-grid">
+                                    <div class="checkbox-item premium" onclick="toggleCheckbox('eauto')">
+                                        <input type="checkbox" id="eauto" name="eauto" onchange="updateAffiliateRouting()">
+                                        <div class="checkbox-content">
+                                            <span class="checkbox-icon">🚗</span>
+                                            <span class="checkbox-label">E-Auto besitzen</span>
+                                            <span class="premium-badge">Premium</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="checkbox-item premium" onclick="toggleCheckbox('smartmeter')">
+                                        <input type="checkbox" id="smartmeter" name="smartmeter" onchange="updateAffiliateRouting()">
+                                        <div class="checkbox-content">
+                                            <span class="checkbox-icon">📱</span>
+                                            <span class="checkbox-label">Smart Meter</span>
+                                            <span class="premium-badge">Smart</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="checkbox-item" onclick="toggleCheckbox('oekostrom')">
+                                        <input type="checkbox" id="oekostrom" name="oekostrom">
+                                        <div class="checkbox-content">
+                                            <span class="checkbox-icon">🌱</span>
+                                            <span class="checkbox-label">Nur Ökostrom</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="checkbox-item" onclick="toggleCheckbox('preisgarantie')">
+                                        <input type="checkbox" id="preisgarantie" name="preisgarantie">
+                                        <div class="checkbox-content">
+                                            <span class="checkbox-icon">🔒</span>
+                                            <span class="checkbox-label">Preisgarantie</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" onclick="prevStep()" class="btn-prev">← Zurück</button>
+                                <button type="button" onclick="nextStep()" class="btn-next">Weiter →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Contact Data -->
+                        <div class="form-step" id="step3">
+                            <h4>📧 Ihre Kontaktdaten</h4>
+                            
+                            <div class="form-group">
+                                <label for="email">E-Mail-Adresse *</label>
+                                <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+                                <small>Für Ihre persönlichen Tarifempfehlungen</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="name">Vor- und Nachname *</label>
+                                <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telefon">Telefonnummer (optional)</label>
+                                <input type="tel" id="telefon" name="telefon" placeholder="030 12345678">
+                                <small>Für persönliche Beratung und Rückfragen</small>
+                            </div>
+                            
+                            <!-- DSGVO Compliance -->
+                            <div class="form-group consent-group">
+                                <div class="checkbox-item required">
+                                    <input type="checkbox" id="dsgvo_consent" name="dsgvo_consent" required>
+                                    <label for="dsgvo_consent">
+                                        Ich stimme der <a href="/datenschutz" target="_blank">Datenschutzerklärung</a> zu und 
+                                        erlaube die Verarbeitung meiner Daten für Tarifvergleiche und Angebote. *
+                                    </label>
+                                </div>
+                                
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <label for="newsletter">
+                                        Ich möchte regelmäßig über neue Stromtarife und Spartipps informiert werden.
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" onclick="prevStep()" class="btn-prev">← Zurück</button>
+                                <button type="submit" class="btn-submit" id="submitButton">
+                                    🚀 Jetzt kostenlos vergleichen und sparen
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <!-- Savings Calculator -->
+                    <div class="savings-calculator">
+                        <h4>💰 Ihr Sparpotential</h4>
+                        <div class="savings-display">
+                            <div class="savings-amount" id="savingsAmount">Bis zu 720€</div>
+                            <div class="savings-period">Ersparnis pro Jahr möglich</div>
+                        </div>
+                        <div class="savings-breakdown" id="savingsBreakdown">
+                            <span>Aktuell: <strong id="currentCost">€1.225</strong></span>
+                            <span class="arrow">→</span>
+                            <span>Optimiert: <strong id="optimizedCost">€875</strong></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Affiliate Routing Info (Debug) -->
+                    <div class="routing-info" id="routingInfo" style="display: none;">
+                        <h5>🎯 Intelligente Tarifempfehlung</h5>
+                        <div class="routing-details">
+                            <span><strong>Empfohlener Partner:</strong> <span id="recommendedAffiliate">CHECK24</span></span>
+                            <span><strong>Erwartete Provision:</strong> <span id="expectedCommission">€20</span></span>
+                            <span><strong>Lead-Score:</strong> <span id="leadScore">75</span>/100</span>
+                            <span><strong>Grund:</strong> <span id="routingReason">Standard-Haushalt</span></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust Section -->
+            <section class="trust-section">
+                <h3>Warum stromtarifprofi.de Ihr verlässlicher Partner ist</h3>
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <div class="trust-icon">✓</div>
+                        <h4>Unabhängig</h4>
+                        <p>100% unabhängiger Vergleich aller verfügbaren Tarife</p>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">€</div>
+                        <h4>Kostenlos</h4>
+                        <p>Für Sie völlig kostenfrei – keine versteckten Gebühren</p>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">⏱</div>
+                        <h4>Schnell</h4>
+                        <p>In nur 3 Minuten zum günstigeren Stromtarif</p>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">🔒</div>
+                        <h4>Sicher</h4>
+                        <p>TÜV-geprüfter Wechselprozess & SSL-verschlüsselte Datenübertragung</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>stromtarifprofi.de</h4>
+                    <p>Ihr unabhängiger Stromtarifvergleich</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Service</h4>
+                    <ul>
+                        <li><a href="/ratgeber">Ratgeber</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="/kontakt">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Rechtliches</h4>
+                    <ul>
+                        <li><a href="/impressum">Impressum</a></li>
+                        <li><a href="/datenschutz">Datenschutz</a></li>
+                        <li><a href="/agb">AGB</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 stromtarifprofi.de - Alle Rechte vorbehalten</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="affiliate-router.js"></script>
+    <script src="form-handler.js"></script>
+    <script src="analytics.js"></script>
+</body>
+</html>
+
