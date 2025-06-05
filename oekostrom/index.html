@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ökostrom - Stromtarifprofi.de</title>
+    <meta name="description" content="Informationen zu Ökostrom-Tarifen - Umweltfreundliche Energie aus erneuerbaren Quellen für Ihr Zuhause">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            background-color: #0066cc;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-contact {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-top-contact span {
+            margin-right: 20px;
+        }
+        
+        .header-top-utilities {
+            display: flex;
+        }
+        
+        .header-top-utilities a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: opacity 0.3s;
+        }
+        
+        .header-top-utilities a:hover {
+            opacity: 0.8;
+        }
+        
+        .header-main {
+            padding: 15px 0;
+        }
+        
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+        
+        .main-nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .main-nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .main-nav ul li a.active {
+            color: #0066cc;
+        }
+        
+        /* Content Styles */
+        .page-header {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .content-section h2 {
+            color: #27ae60;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .content-section h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .content-section p {
+            margin-bottom: 20px;
+        }
+        
+        .content-section ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .content-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        /* Feature Boxes */
+        .eco-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .eco-feature {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .eco-feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .eco-feature-icon {
+            font-size: 40px;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        
+        .eco-feature h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        
+        /* Info Box */
+        .info-box {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-box h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f0f7ff;
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0f0ff;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding-right: 20px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #0066cc;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #999;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                width: 100%;
+                padding-right: 0;
+            }
+            
+            .eco-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-contact">
+                    <span>📞 Kundenservice: 0800-12345678</span>
+                    <span>🕒 Mo-Fr 8-20 Uhr</span>
+                </div>
+                <div class="header-top-utilities">
+                    <a href="#">Login</a>
+                    <a href="#">Merkliste</a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="../index.html" class="logo">stromtarifprofi.de</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="index.html" class="active">Ökostrom</a></li>
+                        <li><a href="../ratgeber/index.html">Ratgeber</a></li>
+                        <li><a href="../ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="../faq/index.html">FAQ</a></li>
+                        <li><a href="../kontakt/index.html">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Ökostrom-Tarife</h1>
+            <p>Umweltfreundliche Energie aus erneuerbaren Quellen für Ihr Zuhause</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="container">
+        <div class="content-section">
+            <h2>Was ist Ökostrom?</h2>
+            <p>Ökostrom ist Elektrizität, die aus erneuerbaren Energiequellen wie Wind, Sonne, Wasser oder Biomasse gewonnen wird. Im Gegensatz zu konventionellem Strom aus fossilen Brennstoffen oder Atomkraft verursacht Ökostrom deutlich weniger CO₂-Emissionen und trägt somit aktiv zum Klimaschutz bei.</p>
+            
+            <div class="eco-features">
+                <div class="eco-feature">
+                    <div class="eco-feature-icon">🌞</div>
+                    <h3>Solarenergie</h3>
+                    <p>Strom aus Photovoltaikanlagen, die Sonnenlicht direkt in elektrische Energie umwandeln.</p>
+                </div>
+                
+                <div class="eco-feature">
+                    <div class="eco-feature-icon">💨</div>
+                    <h3>Windenergie</h3>
+                    <p>Strom aus Windkraftanlagen, die die kinetische Energie des Windes nutzen.</p>
+                </div>
+                
+                <div class="eco-feature">
+                    <div class="eco-feature-icon">💧</div>
+                    <h3>Wasserkraft</h3>
+                    <p>Strom aus Wasserkraftwerken, die die Strömungsenergie des Wassers nutzen.</p>
+                </div>
+                
+                <div class="eco-feature">
+                    <div class="eco-feature-icon">🌱</div>
+                    <h3>Biomasse</h3>
+                    <p>Strom aus der Verbrennung oder Vergärung organischer Materialien.</p>
+                </div>
+            </div>
+            
+            <h3>Vorteile von Ökostrom</h3>
+            <ul>
+                <li><strong>Klimaschutz:</strong> Deutlich geringere CO₂-Emissionen im Vergleich zu konventionellem Strom</li>
+                <li><strong>Ressourcenschonung:</strong> Nutzung erneuerbarer, unerschöpflicher Energiequellen</li>
+                <li><strong>Energiewende:</strong> Unterstützung des Ausbaus erneuerbarer Energien</li>
+                <li><strong>Unabhängigkeit:</strong> Reduzierung der Abhängigkeit von Energieimporten</li>
+                <li><strong>Zukunftssicherheit:</strong> Investition in zukunftsfähige Technologien</li>
+            </ul>
+            
+            <div class="info-box">
+                <h4>Wussten Sie schon?</h4>
+                <p>In Deutschland stammen bereits über 45% des erzeugten Stroms aus erneuerbaren Energien. Tendenz steigend!</p>
+            </div>
+            
+            <h3>Ökostrom-Zertifizierungen</h3>
+            <p>Nicht jeder als "Ökostrom" beworbene Tarif ist gleich umweltfreundlich. Achten Sie auf anerkannte Zertifizierungen:</p>
+            
+            <ul>
+                <li><strong>Grüner Strom Label:</strong> Strenge Kriterien für echten Ökostrom mit Investitionen in neue Anlagen</li>
+                <li><strong>ok-power:</strong> Garantiert Investitionen in die Energiewende</li>
+                <li><strong>TÜV-Siegel:</strong> Bestätigt die Herkunft aus erneuerbaren Quellen</li>
+            </ul>
+            
+            <h3>Ökostrom-Tarife im Vergleich</h3>
+            <p>Bei unserem Stromtarifvergleich können Sie gezielt nach Ökostrom-Tarifen filtern. So finden Sie den umweltfreundlichsten und gleichzeitig günstigsten Anbieter für Ihren Bedarf.</p>
+            
+            <p>Wichtige Kriterien beim Vergleich von Ökostrom-Tarifen:</p>
+            <ul>
+                <li><strong>Zertifizierung:</strong> Achten Sie auf anerkannte Ökostrom-Siegel</li>
+                <li><strong>Herkunft:</strong> Woher stammt der Strom? Regionale Erzeugung ist oft nachhaltiger</li>
+                <li><strong>Investitionen:</strong> Investiert der Anbieter in neue Ökostromanlagen?</li>
+                <li><strong>Preis:</strong> Ökostrom muss nicht teurer sein als konventioneller Strom</li>
+                <li><strong>Vertragsbedingungen:</strong> Laufzeit, Kündigungsfrist und Preisgarantie</li>
+            </ul>
+            
+            <h3>Häufige Fragen zu Ökostrom</h3>
+            
+            <h4>Ist Ökostrom teurer als konventioneller Strom?</h4>
+            <p>Nicht unbedingt. Durch den Ausbau erneuerbarer Energien und den steigenden Wettbewerb sind viele Ökostrom-Tarife mittlerweile genauso günstig oder sogar günstiger als konventionelle Stromtarife.</p>
+            
+            <h4>Wie funktioniert die Einspeisung von Ökostrom?</h4>
+            <p>Physikalisch fließt der Strom aus allen Quellen ins selbe Stromnetz. Wenn Sie einen Ökostrom-Tarif wählen, garantiert Ihr Anbieter, dass für Ihren Verbrauch die entsprechende Menge Ökostrom ins Netz eingespeist wird.</p>
+            
+            <h4>Kann ich mit Ökostrom wirklich etwas für die Umwelt tun?</h4>
+            <p>Ja! Durch die Wahl eines zertifizierten Ökostrom-Tarifs unterstützen Sie den Ausbau erneuerbarer Energien und tragen zur Reduzierung von CO₂-Emissionen bei.</p>
+            
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="../index.html" class="btn btn-primary">Jetzt Ökostrom-Tarife vergleichen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Stromtarifprofi.de</h3>
+                    <p>Ihr unabhängiger Stromtarifvergleich</p>
+                    <p>Über 12.000 Tarife von mehr als 1.100 Anbietern im Vergleich</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Schnellzugriff</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="index.html" class="active">Ökostrom</a></li>
+                        <li><a href="../ratgeber/index.html">Ratgeber</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Informationen</h3>
+                    <ul>
+                        <li><a href="../ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="../faq/index.html">FAQ</a></li>
+                        <li><a href="../kontakt/index.html">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="../impressum/index.html">Impressum</a></li>
+                        <li><a href="../datenschutz/index.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Stromtarifprofi.de - Alle Rechte vorbehalten</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
