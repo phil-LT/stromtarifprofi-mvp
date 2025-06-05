@@ -3,294 +3,720 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stromtarifprofi.de - MVP Enhanced Lead Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Stromtarifprofi.de - Ihr unabhängiger Stromtarifvergleich</title>
+    <meta name="description" content="Vergleichen Sie über 12.000 Stromtarife von mehr als 1.100 Anbietern. Kostenlos, unverbindlich und in nur 3 Minuten zum günstigeren Stromtarif.">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            background-color: #0066cc;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-contact {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-top-contact span {
+            margin-right: 20px;
+        }
+        
+        .header-top-utilities {
+            display: flex;
+        }
+        
+        .header-top-utilities a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: opacity 0.3s;
+        }
+        
+        .header-top-utilities a:hover {
+            opacity: 0.8;
+        }
+        
+        .header-main {
+            padding: 15px 0;
+        }
+        
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+        
+        .main-nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .main-nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .main-nav ul li a.active {
+            color: #0066cc;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+        
+        .hero-feature::before {
+            content: "✓";
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .form-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            opacity: 0.9;
+        }
+        
+        /* Savings Display */
+        .savings-display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+        }
+        
+        .savings-display h3 {
+            color: #28a745;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .savings-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin: 10px 0;
+        }
+        
+        .savings-details {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Multi-step Form */
+        .form-content {
+            padding: 40px;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+        
+        .progress-step {
+            background: #e9ecef;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .progress-step.active {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .progress-step.completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+        
+        .form-group input.error {
+            border-color: #dc3545;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Checkbox Styles */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .checkbox-item:hover {
+            border-color: #0066cc;
+            background: #f8f9fa;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .checkbox-item.premium {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+        }
+        
+        /* DSGVO Compliance */
+        .dsgvo-section {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .dsgvo-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .dsgvo-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 4px;
+            transform: scale(1.1);
+        }
+        
+        .dsgvo-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .dsgvo-text a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .dsgvo-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            font-size: 18px;
+            padding: 15px 40px;
+            width: 100%;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .cookie-banner .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .cookie-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .cookie-banner .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .form-content {
+                padding: 20px;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Cookie Consent Banner -->
-    <div id="cookieBanner" class="cookie-banner">
-        <div class="cookie-content">
-            <p>🍪 Wir verwenden Cookies für Affiliate-Tracking und zur Verbesserung Ihrer Erfahrung.</p>
-            <div class="cookie-buttons">
-                <button onclick="acceptCookies()" class="btn-accept">Alle akzeptieren</button>
-                <button onclick="rejectCookies()" class="btn-reject">Nur notwendige</button>
-                <a href="/datenschutz" class="cookie-link">Datenschutz</a>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-contact">
+                    <span>📞 Kundenservice: 0800-12345678</span>
+                    <span>🕒 Mo-Fr 8-20 Uhr</span>
+                </div>
+                <div class="header-top-utilities">
+                    <a href="#">Login</a>
+                    <a href="#">Merkliste</a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>stromtarifprofi.de</h1>
-                    <span class="tagline">Ihr unabhängiger Stromtarifvergleich</span>
-                </div>
-                <div class="header-info">
-                    <span>☎ Kundenservice: 0800-123456789</span>
-                    <span>⏰ Mo-Fr: 8-20 Uhr</span>
-                </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo">stromtarifprofi.de</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="oekostrom/index.html">Ökostrom</a></li>
+                        <li><a href="ratgeber/index.html">Ratgeber</a></li>
+                        <li><a href="ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="faq/index.html">FAQ</a></li>
+                        <li><a href="kontakt/index.html">Kontakt</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <!-- Hero Section -->
-            <section class="hero">
-                <h2>Bis zu 720€ im Jahr bei Stromkosten sparen – unabhängig & kostenlos vergleichen</h2>
-                <p class="hero-subtitle">Über 12.000 Tarife von mehr als 1.100 Stromanbietern im Vergleich – in nur 3 Minuten zum günstigeren Stromtarif</p>
-                
-                <div class="trust-indicators">
-                    <span>✓ 100% kostenlos</span>
-                    <span>✓ Unverbindlich</span>
-                    <span>✓ In 3 Minuten erledigt</span>
-                    <span>✓ Über 250.000 zufriedene Kunden</span>
-                </div>
-            </section>
+            <h1>Bis zu 720€ im Jahr bei Stromkosten sparen – unabhängig & kostenlos vergleichen</h1>
+            <p>Über 12.000 Tarife von mehr als 1.100 Stromanbietern im Vergleich – in nur 3 Minuten zum günstigeren Stromtarif</p>
+            
+            <div class="hero-features">
+                <div class="hero-feature">100% kostenlos</div>
+                <div class="hero-feature">Unverbindlich</div>
+                <div class="hero-feature">In 3 Minuten erledigt</div>
+                <div class="hero-feature">Über 250.000 zufriedene Kunden</div>
+            </div>
+        </div>
+    </section>
 
-            <!-- Enhanced Lead Form -->
-            <section class="form-section">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h3>Finden Sie Ihren perfekten Stromtarif</h3>
-                        <p>Intelligente Tarifempfehlung basierend auf Ihren Bedürfnissen</p>
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Finden Sie Ihren perfekten Stromtarif</h2>
+                    <p>Intelligente Tarifempfehlung basierend auf Ihren Bedürfnissen</p>
+                </div>
+
+                <!-- Savings Display -->
+                <div class="savings-display">
+                    <h3>💡 Ihr Sparpotential</h3>
+                    <div class="savings-amount">Bis zu 720€</div>
+                    <p>Ersparnis pro Jahr möglich</p>
+                    <div class="savings-details">
+                        <div>Aktuell: <strong class="current-cost">€1.225</strong></div>
+                        <div>→</div>
+                        <div>Optimiert: <strong class="optimized-cost">€875</strong></div>
                     </div>
-                    
-                    <form id="leadForm" onsubmit="handleFormSubmit(event)">
-                        <!-- Step 1: Basic Data -->
+                </div>
+
+                <div class="form-content">
+                    <!-- Progress Bar -->
+                    <div class="progress-bar">
+                        <div class="progress-step active">1</div>
+                        <div class="progress-step">2</div>
+                        <div class="progress-step">3</div>
+                    </div>
+
+                    <!-- Multi-step Form -->
+                    <form id="leadForm">
+                        <!-- Step 1: Grunddaten -->
                         <div class="form-step active" id="step1">
-                            <h4>📍 Ihre Grunddaten</h4>
+                            <h3>Schritt 1: Ihre Grunddaten</h3>
                             
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="plz">Postleitzahl *</label>
-                                    <input type="text" id="plz" name="plz" placeholder="z.B. 10115" required 
-                                           pattern="[0-9]{5}" title="Bitte geben Sie eine gültige 5-stellige PLZ ein"
-                                           onchange="updateRegionalInfo()">
+                                    <input type="text" id="plz" name="plz" required placeholder="z.B. 10119" maxlength="5" pattern="[0-9]{5}">
                                 </div>
-                                
                                 <div class="form-group">
-                                    <label for="verbrauch">Jahresverbrauch in kWh *</label>
-                                    <input type="number" id="verbrauch" name="verbrauch" placeholder="z.B. 3500" 
-                                           min="1000" max="15000" required onchange="calculateSavings()">
-                                    <small>Tipp: Schauen Sie auf Ihre letzte Stromrechnung</small>
+                                    <label for="verbrauch">Jahresverbrauch (kWh) *</label>
+                                    <input type="number" id="verbrauch" name="verbrauch" required placeholder="z.B. 3500" min="500" max="50000">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="haushaltsgroesse">Haushaltsgröße</label>
-                                <select id="haushaltsgroesse" name="haushaltsgroesse" onchange="updateConsumptionHint()">
-                                    <option value="">Bitte wählen</option>
-                                    <option value="1">1 Person (ca. 2.000 kWh/Jahr)</option>
-                                    <option value="2">2 Personen (ca. 3.500 kWh/Jahr)</option>
-                                    <option value="3-4">3-4 Personen (ca. 4.500 kWh/Jahr)</option>
-                                    <option value="5+">5+ Personen (ca. 6.000+ kWh/Jahr)</option>
+                                <select id="haushaltsgroesse" name="haushaltsgroesse">
+                                    <option value="1 Person">1 Person (ca. 2.000 kWh/Jahr)</option>
+                                    <option value="2 Personen" selected>2 Personen (ca. 3.500 kWh/Jahr)</option>
+                                    <option value="3 Personen">3 Personen (ca. 4.500 kWh/Jahr)</option>
+                                    <option value="4+ Personen">4+ Personen (ca. 5.500+ kWh/Jahr)</option>
                                 </select>
                             </div>
-                            
-                            <button type="button" onclick="nextStep()" class="btn-next">Weiter →</button>
+
+                            <div class="form-navigation">
+                                <div></div>
+                                <button type="button" class="btn btn-primary" onclick="nextStep()">Weiter</button>
+                            </div>
                         </div>
 
-                        <!-- Step 2: Preferences -->
+                        <!-- Step 2: Präferenzen -->
                         <div class="form-step" id="step2">
-                            <h4>🏠 Ihre Präferenzen</h4>
+                            <h3>Schritt 2: Ihre Präferenzen</h3>
                             
-                            <div class="form-group">
-                                <label for="wohnsituation">Wohnsituation</label>
-                                <select id="wohnsituation" name="wohnsituation">
-                                    <option value="">Bitte wählen</option>
-                                    <option value="mieter">Mieter</option>
-                                    <option value="eigentuemer">Eigentümer</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Besondere Anforderungen</label>
-                                <div class="checkbox-grid">
-                                    <div class="checkbox-item premium" onclick="toggleCheckbox('eauto')">
-                                        <input type="checkbox" id="eauto" name="eauto" onchange="updateAffiliateRouting()">
-                                        <div class="checkbox-content">
-                                            <span class="checkbox-icon">🚗</span>
-                                            <span class="checkbox-label">E-Auto besitzen</span>
-                                            <span class="premium-badge">Premium</span>
-                                        </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item premium" onclick="toggleCheckbox('eauto')">
+                                    <input type="checkbox" id="eauto" name="eauto">
+                                    <div>
+                                        <strong>🚗 Ich besitze ein Elektroauto</strong>
+                                        <br><small>Spezielle Tarife für E-Auto-Besitzer (bis zu 30% günstiger)</small>
                                     </div>
-                                    
-                                    <div class="checkbox-item premium" onclick="toggleCheckbox('smartmeter')">
-                                        <input type="checkbox" id="smartmeter" name="smartmeter" onchange="updateAffiliateRouting()">
-                                        <div class="checkbox-content">
-                                            <span class="checkbox-icon">📱</span>
-                                            <span class="checkbox-label">Smart Meter</span>
-                                            <span class="premium-badge">Smart</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="checkbox-item" onclick="toggleCheckbox('oekostrom')">
-                                        <input type="checkbox" id="oekostrom" name="oekostrom">
-                                        <div class="checkbox-content">
-                                            <span class="checkbox-icon">🌱</span>
-                                            <span class="checkbox-label">Nur Ökostrom</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="checkbox-item" onclick="toggleCheckbox('preisgarantie')">
-                                        <input type="checkbox" id="preisgarantie" name="preisgarantie">
-                                        <div class="checkbox-content">
-                                            <span class="checkbox-icon">🔒</span>
-                                            <span class="checkbox-label">Preisgarantie</span>
-                                        </div>
+                                </div>
+                                
+                                <div class="checkbox-item" onclick="toggleCheckbox('smartmeter')">
+                                    <input type="checkbox" id="smartmeter" name="smartmeter">
+                                    <div>
+                                        <strong>📊 Ich habe einen Smart Meter</strong>
+                                        <br><small>Zeitvariable Tarife für intelligente Stromzähler</small>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-navigation">
-                                <button type="button" onclick="prevStep()" class="btn-prev">← Zurück</button>
-                                <button type="button" onclick="nextStep()" class="btn-next">Weiter →</button>
+                                <button type="button" class="btn btn-secondary" onclick="prevStep()">Zurück</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep()">Weiter</button>
                             </div>
                         </div>
 
-                        <!-- Step 3: Contact Data -->
+                        <!-- Step 3: Kontaktdaten -->
                         <div class="form-step" id="step3">
-                            <h4>📧 Ihre Kontaktdaten</h4>
-                            
-                            <div class="form-group">
-                                <label for="email">E-Mail-Adresse *</label>
-                                <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
-                                <small>Für Ihre persönlichen Tarifempfehlungen</small>
-                            </div>
+                            <h3>Schritt 3: Ihre Kontaktdaten</h3>
                             
                             <div class="form-group">
                                 <label for="name">Vor- und Nachname *</label>
-                                <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+                                <input type="text" id="name" name="name" required placeholder="Max Mustermann">
                             </div>
-                            
+
+                            <div class="form-group">
+                                <label for="email">E-Mail-Adresse *</label>
+                                <input type="email" id="email" name="email" required placeholder="max.mustermann@email.com">
+                                <small>Für Ihre persönlichen Tarifempfehlungen</small>
+                            </div>
+
                             <div class="form-group">
                                 <label for="telefon">Telefonnummer (optional)</label>
                                 <input type="tel" id="telefon" name="telefon" placeholder="030 12345678">
                                 <small>Für persönliche Beratung und Rückfragen</small>
                             </div>
-                            
+
                             <!-- DSGVO Compliance -->
-                            <div class="form-group consent-group">
-                                <div class="checkbox-item required">
-                                    <input type="checkbox" id="dsgvo_consent" name="dsgvo_consent" required>
-                                    <label for="dsgvo_consent">
-                                        Ich stimme der <a href="/datenschutz" target="_blank">Datenschutzerklärung</a> zu und 
-                                        erlaube die Verarbeitung meiner Daten für Tarifvergleiche und Angebote. *
-                                    </label>
+                            <div class="dsgvo-section">
+                                <div class="dsgvo-checkbox">
+                                    <input type="checkbox" id="dsgvo" name="dsgvo" required>
+                                    <div class="dsgvo-text">
+                                        Ich stimme der <a href="#" target="_blank">Datenschutzerklärung</a> zu und erlaube die Verarbeitung meiner Daten für Tarifvergleiche und Angebote. *
+                                    </div>
                                 </div>
                                 
-                                <div class="checkbox-item">
+                                <div class="dsgvo-checkbox">
                                     <input type="checkbox" id="newsletter" name="newsletter">
-                                    <label for="newsletter">
+                                    <div class="dsgvo-text">
                                         Ich möchte regelmäßig über neue Stromtarife und Spartipps informiert werden.
-                                    </label>
+                                    </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-navigation">
-                                <button type="button" onclick="prevStep()" class="btn-prev">← Zurück</button>
-                                <button type="submit" class="btn-submit" id="submitButton">
-                                    🚀 Jetzt kostenlos vergleichen und sparen
-                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="prevStep()">Zurück</button>
+                                <button type="submit" class="btn btn-success">🔍 Jetzt kostenlos vergleichen und sparen</button>
                             </div>
                         </div>
                     </form>
-                    
-                    <!-- Savings Calculator -->
-                    <div class="savings-calculator">
-                        <h4>💰 Ihr Sparpotential</h4>
-                        <div class="savings-display">
-                            <div class="savings-amount" id="savingsAmount">Bis zu 720€</div>
-                            <div class="savings-period">Ersparnis pro Jahr möglich</div>
-                        </div>
-                        <div class="savings-breakdown" id="savingsBreakdown">
-                            <span>Aktuell: <strong id="currentCost">€1.225</strong></span>
-                            <span class="arrow">→</span>
-                            <span>Optimiert: <strong id="optimizedCost">€875</strong></span>
-                        </div>
-                    </div>
-                    
-                    <!-- Affiliate Routing Info (Debug) -->
-                    <div class="routing-info" id="routingInfo" style="display: none;">
-                        <h5>🎯 Intelligente Tarifempfehlung</h5>
-                        <div class="routing-details">
-                            <span><strong>Empfohlener Partner:</strong> <span id="recommendedAffiliate">CHECK24</span></span>
-                            <span><strong>Erwartete Provision:</strong> <span id="expectedCommission">€20</span></span>
-                            <span><strong>Lead-Score:</strong> <span id="leadScore">75</span>/100</span>
-                            <span><strong>Grund:</strong> <span id="routingReason">Standard-Haushalt</span></span>
-                        </div>
-                    </div>
                 </div>
-            </section>
-
-            <!-- Trust Section -->
-            <section class="trust-section">
-                <h3>Warum stromtarifprofi.de Ihr verlässlicher Partner ist</h3>
-                <div class="trust-grid">
-                    <div class="trust-item">
-                        <div class="trust-icon">✓</div>
-                        <h4>Unabhängig</h4>
-                        <p>100% unabhängiger Vergleich aller verfügbaren Tarife</p>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">€</div>
-                        <h4>Kostenlos</h4>
-                        <p>Für Sie völlig kostenfrei – keine versteckten Gebühren</p>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">⏱</div>
-                        <h4>Schnell</h4>
-                        <p>In nur 3 Minuten zum günstigeren Stromtarif</p>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">🔒</div>
-                        <h4>Sicher</h4>
-                        <p>TÜV-geprüfter Wechselprozess & SSL-verschlüsselte Datenübertragung</p>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>stromtarifprofi.de</h4>
-                    <p>Ihr unabhängiger Stromtarifvergleich</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Service</h4>
-                    <ul>
-                        <li><a href="/ratgeber">Ratgeber</a></li>
-                        <li><a href="/faq">FAQ</a></li>
-                        <li><a href="/kontakt">Kontakt</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Rechtliches</h4>
-                    <ul>
-                        <li><a href="/impressum">Impressum</a></li>
-                        <li><a href="/datenschutz">Datenschutz</a></li>
-                        <li><a href="/agb">AGB</a></li>
-                    </ul>
-                </div>
+            <div class="cookie-text">
+                <strong>🍪 Wir verwenden Cookies</strong><br>
+                Um Ihnen die bestmögliche Nutzererfahrung zu bieten und unsere Website zu verbessern, verwenden wir Cookies. 
+                <a href="#" style="color: #fff; text-decoration: underline;">Mehr erfahren</a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 stromtarifprofi.de - Alle Rechte vorbehalten</p>
+            <div class="cookie-buttons">
+                <button class="btn btn-secondary" onclick="rejectCookies()">Ablehnen</button>
+                <button class="btn btn-primary" onclick="acceptCookies()">Akzeptieren</button>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- Scripts -->
-    <script src="affiliate-router.js"></script>
+    <!-- JavaScript -->
     <script src="form-handler.js"></script>
+    <script src="affiliate-router.js"></script>
     <script src="analytics.js"></script>
 </body>
 </html>
-
