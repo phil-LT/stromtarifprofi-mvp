@@ -603,4 +603,53 @@ function getCookie(name) {
     }
     return null;
 }
+// Lead-Tracking-Funktionen
+function saveLeadLocally(leadData) {
+    let leads = JSON.parse(localStorage.getItem('leads') || '[]');
+    leads.push({
+        ...leadData,
+        timestamp: new Date().toISOString(),
+        id: Date.now()
+    });
+    localStorage.setItem('leads', JSON.stringify(leads));
+    console.log('Lead gespeichert:', leadData);
+}
 
+// Lead-Tracking-Funktionen - Am Ende der Datei hinzufügen
+function saveLeadLocally(leadData) {
+    let leads = JSON.parse(localStorage.getItem('leads') || '[]');
+    leads.push({
+        ...leadData,
+        timestamp: new Date().toISOString(),
+        id: Date.now()
+    });
+    localStorage.setItem('leads', JSON.stringify(leads));
+    console.log('Lead gespeichert:', leadData);
+}
+
+// Leads anzeigen
+function showAllLeads() {
+    console.table(JSON.parse(localStorage.getItem('leads') || '[]'));
+}
+
+// Admin-Panel für Lead-Verwaltung
+function createLeadAdminPanel() {
+    const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+    console.log(`📊 Gesamt-Leads: ${leads.length}`);
+    console.table(leads);
+    
+    // Lead-Statistiken
+    const stats = {
+        total: leads.length,
+        today: leads.filter(l => new Date(l.timestamp).toDateString() === new Date().toDateString()).length,
+        thisWeek: leads.filter(l => {
+            const leadDate = new Date(l.timestamp);
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            return leadDate > weekAgo;
+        }).length
+    };
+    
+    console.log('📈 Lead-Statistiken:', stats);
+    return stats;
+}
