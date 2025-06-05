@@ -1,7 +1,7 @@
 // Enhanced Form Handler with LeadHub Professional API Integration + Multi-Step Functionality
-// Version: 2.1 - Complete Integration with Original Features
+// Version: 2.2 - Fixed for existing HTML structure
 
-console.log('🚀 Form Handler v2.1 - LeadHub API + Multi-Step loaded');
+console.log('🚀 Form Handler v2.2 - LeadHub API + Multi-Step (Fixed) loaded');
 
 // Konfiguration
 const CONFIG = {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Multi-step form navigation
+// Multi-step form navigation - FIXED for existing HTML structure
 function initFormSteps() {
     // Show first step initially
     showStep(currentStep);
@@ -47,15 +47,17 @@ function initFormSteps() {
 }
 
 function showStep(step) {
-    // Hide all steps
+    // Hide all steps - FIXED selectors for existing HTML
     document.querySelectorAll('.form-step').forEach(el => {
         el.style.display = 'none';
+        el.classList.remove('active');
     });
     
-    // Show current step
-    const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+    // Show current step - FIXED to use existing IDs
+    const currentStepEl = document.getElementById(`step${step}`);
     if (currentStepEl) {
         currentStepEl.style.display = 'block';
+        currentStepEl.classList.add('active');
     }
     
     // Update progress indicators if they exist
@@ -150,7 +152,7 @@ function prevStep() {
 }
 
 function validateCurrentStep() {
-    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    const currentStepEl = document.getElementById(`step${currentStep}`);
     if (!currentStepEl) return true;
     
     const requiredFields = currentStepEl.querySelectorAll('input[required], select[required]');
@@ -178,8 +180,8 @@ function collectLeadData() {
         plz: formData.get('plz') || '',
         verbrauch: formData.get('verbrauch') || '',
         haushaltsgroesse: formData.get('haushaltsgroesse') || '1-2 Personen',
-        e_auto: formData.get('e_auto') === 'on' || false,
-        smart_meter: formData.get('smart_meter') === 'on' || false,
+        e_auto: formData.get('eauto') === 'on' || false,
+        smart_meter: formData.get('smartmeter') === 'on' || false,
         timestamp: new Date().toISOString(),
         source: 'Website',
         utm_source: new URLSearchParams(window.location.search).get('utm_source'),
@@ -356,6 +358,49 @@ async function handleFormSubmit(e ) {
     }
 }
 
+// Helper functions for existing HTML
+function toggleCheckbox(checkboxId) {
+    const checkbox = document.getElementById(checkboxId);
+    if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+        updateAffiliateRouting();
+    }
+}
+
+function updateRegionalInfo() {
+    // Placeholder for regional info updates
+    debugLog('Regional info updated');
+}
+
+function updateConsumptionHint() {
+    // Placeholder for consumption hint updates
+    debugLog('Consumption hint updated');
+}
+
+function updateAffiliateRouting() {
+    // Placeholder for affiliate routing updates
+    debugLog('Affiliate routing updated');
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    const banner = document.getElementById('cookieBanner');
+    if (banner) banner.style.display = 'none';
+    
+    // Initialize analytics if accepted
+    if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+        });
+    }
+}
+
+function rejectCookies() {
+    localStorage.setItem('cookieConsent', 'rejected');
+    const banner = document.getElementById('cookieBanner');
+    if (banner) banner.style.display = 'none';
+}
+
 // Admin functions for local lead management
 function showAllLeads() {
     const leads = JSON.parse(localStorage.getItem('leads') || '[]');
@@ -384,10 +429,17 @@ function createLeadAdminPanel() {
     return stats;
 }
 
-// Global functions for console access
+// Global functions for console access and existing HTML compatibility
 window.showAllLeads = showAllLeads;
 window.createLeadAdminPanel = createLeadAdminPanel;
 window.nextStep = nextStep;
 window.prevStep = prevStep;
+window.toggleCheckbox = toggleCheckbox;
+window.updateRegionalInfo = updateRegionalInfo;
+window.updateConsumptionHint = updateConsumptionHint;
+window.updateAffiliateRouting = updateAffiliateRouting;
+window.acceptCookies = acceptCookies;
+window.rejectCookies = rejectCookies;
+window.handleFormSubmit = handleFormSubmit;
 
-debugLog('🎯 Form Handler v2.1 vollständig geladen');
+debugLog('🎯 Form Handler v2.2 vollständig geladen (Fixed for existing HTML)');
