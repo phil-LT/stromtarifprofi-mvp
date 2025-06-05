@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratgeber - Stromtarifprofi.de</title>
+    <meta name="description" content="Hilfreiche Tipps und Informationen rund um das Thema Strom, Stromsparen und Stromtarife">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            background-color: #0066cc;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-top-contact {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-top-contact span {
+            margin-right: 20px;
+        }
+        
+        .header-top-utilities {
+            display: flex;
+        }
+        
+        .header-top-utilities a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: opacity 0.3s;
+        }
+        
+        .header-top-utilities a:hover {
+            opacity: 0.8;
+        }
+        
+        .header-main {
+            padding: 15px 0;
+        }
+        
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+        
+        .main-nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .main-nav ul li a:hover {
+            color: #0066cc;
+        }
+        
+        .main-nav ul li a.active {
+            color: #0066cc;
+        }
+        
+        /* Content Styles */
+        .page-header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .content-section h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .content-section h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .content-section p {
+            margin-bottom: 20px;
+        }
+        
+        .content-section ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .content-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        /* Article Cards */
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-image {
+            height: 180px;
+            background-color: #f0f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #0066cc;
+        }
+        
+        .article-content {
+            padding: 20px;
+        }
+        
+        .article-content h3 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .article-meta {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+        
+        /* Tip Box */
+        .tip-box {
+            background: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f0f7ff;
+            color: #0066cc;
+            border: 1px solid #0066cc;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0f0ff;
+        }
+        
+        .read-more {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more:after {
+            content: "→";
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+        
+        .read-more:hover:after {
+            margin-left: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding-right: 20px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #0066cc;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #999;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                width: 100%;
+                padding-right: 0;
+            }
+            
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-contact">
+                    <span>📞 Kundenservice: 0800-12345678</span>
+                    <span>🕒 Mo-Fr 8-20 Uhr</span>
+                </div>
+                <div class="header-top-utilities">
+                    <a href="#">Login</a>
+                    <a href="#">Merkliste</a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="../index.html" class="logo">stromtarifprofi.de</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="../oekostrom/index.html">Ökostrom</a></li>
+                        <li><a href="index.html" class="active">Ratgeber</a></li>
+                        <li><a href="../ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="../faq/index.html">FAQ</a></li>
+                        <li><a href="../KONTAKT/INDEX.html">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Ratgeber</h1>
+            <p>Hilfreiche Tipps und Informationen rund um das Thema Strom</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="container">
+        <div class="content-section">
+            <h2>Alles Wissenswerte rund um Strom und Stromtarife</h2>
+            <p>In unserem Ratgeber finden Sie hilfreiche Informationen, Tipps und Tricks rund um die Themen Stromtarife, Stromsparen und Energieeffizienz. Wir helfen Ihnen, den Strommarkt besser zu verstehen und die richtigen Entscheidungen zu treffen.</p>
+            
+            <div class="article-grid">
+                <div class="article-card">
+                    <div class="article-image">💰</div>
+                    <div class="article-content">
+                        <div class="article-meta">05.06.2025 | Stromtarife</div>
+                        <h3>Strompreise verstehen: Was macht Ihren Tarif teuer?</h3>
+                        <p>Erfahren Sie, aus welchen Komponenten sich Ihr Strompreis zusammensetzt und welche Faktoren Sie beeinflussen können.</p>
+                        <a href="#" class="read-more">Weiterlesen</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">🔌</div>
+                    <div class="article-content">
+                        <div class="article-meta">01.06.2025 | Energiesparen</div>
+                        <h3>10 einfache Tipps zum Stromsparen im Alltag</h3>
+                        <p>Mit diesen praktischen Tipps können Sie Ihren Stromverbrauch senken und bares Geld sparen - ohne auf Komfort zu verzichten.</p>
+                        <a href="#" class="read-more">Weiterlesen</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">🌿</div>
+                    <div class="article-content">
+                        <div class="article-meta">28.05.2025 | Ökostrom</div>
+                        <h3>Ökostrom-Siegel: Was bedeuten die verschiedenen Zertifikate?</h3>
+                        <p>Nicht jedes Ökostrom-Siegel ist gleich. Wir erklären die Unterschiede und worauf Sie achten sollten.</p>
+                        <a href="#" class="read-more">Weiterlesen</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">📊</div>
+                    <div class="article-content">
+                        <div class="article-meta">25.05.2025 | Verbrauch</div>
+                        <h3>Stromverbrauch richtig einschätzen: So viel verbrauchen Ihre Geräte</h3>
+                        <p>Welche Geräte sind die größten Stromfresser? Wir zeigen, wo sich Einsparungen besonders lohnen.</p>
+                        <a href="#" class="read-more">Weiterlesen</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">⚡</div>
+                    <div class="article-content">
+                        <div class="article-meta">20.05.2025 | E-Mobilität</div>
+                        <h3>Elektroauto laden: Die besten Stromtarife für E-Auto-Besitzer</h3>
+                        <p>Spezielle Tarife für Elektroautos können die Ladekosten deutlich senken. Wir vergleichen die Angebote.</p>
+                        <a href="#" class="read-more">Weiterlesen</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">🏠</div>
+                    <div class="article-content">
+                        <div class="article-meta">15.05.2025 | Smart Home</div>
+                        <h3>Smart Home: Intelligente Geräte für mehr Energieeffizienz</h3>
+                        <p>Wie Smart-Home-Technologien helfen können, den Stromverbrauch zu optimieren und Kosten zu sparen.</p>
+                        <a href="#" class="read-more">Weiterlesen</a>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Stromanbieterwechsel leicht gemacht</h3>
+            <p>Viele Verbraucher scheuen den Wechsel des Stromanbieters, obwohl sich damit oft mehrere hundert Euro pro Jahr sparen lassen. Dabei ist der Wechsel einfacher als gedacht:</p>
+            
+            <ol>
+                <li><strong>Daten bereithalten:</strong> Für einen Vergleich benötigen Sie Ihre Postleitzahl und Ihren ungefähren Jahresverbrauch in kWh.</li>
+                <li><strong>Tarife vergleichen:</strong> Nutzen Sie unseren Stromtarifrechner, um die besten Angebote für Ihren Standort zu finden.</li>
+                <li><strong>Neuen Vertrag abschließen:</strong> Haben Sie einen passenden Tarif gefunden, können Sie diesen direkt online abschließen.</li>
+                <li><strong>Kündigung übernimmt der neue Anbieter:</strong> In der Regel kümmert sich Ihr neuer Stromanbieter um die Kündigung beim alten Anbieter.</li>
+                <li><strong>Keine Versorgungslücke:</strong> Die Stromversorgung bleibt während des Wechsels unterbrechungsfrei bestehen.</li>
+            </ol>
+            
+            <div class="tip-box">
+                <h4>Tipp: Wechselzeitpunkt beachten</h4>
+                <p>Der beste Zeitpunkt für einen Anbieterwechsel ist etwa 3 Monate vor Ablauf Ihrer aktuellen Vertragslaufzeit. So haben Sie genügend Zeit für die Kündigungsfrist und können nahtlos in den neuen Tarif wechseln.</p>
+            </div>
+            
+            <h3>Häufige Fragen zum Stromtarifwechsel</h3>
+            
+            <h4>Kann beim Anbieterwechsel der Strom abgestellt werden?</h4>
+            <p>Nein, bei einem Anbieterwechsel kommt es zu keiner Unterbrechung der Stromversorgung. Der Netzbetreiber bleibt derselbe, es ändert sich nur der Lieferant.</p>
+            
+            <h4>Muss ich bei einem Wechsel neue Leitungen oder einen neuen Zähler bekommen?</h4>
+            <p>Nein, die Stromleitungen und der Zähler gehören dem lokalen Netzbetreiber und bleiben bei einem Anbieterwechsel unverändert.</p>
+            
+            <h4>Wie lange dauert ein Anbieterwechsel?</h4>
+            <p>Ein Anbieterwechsel dauert in der Regel 4-6 Wochen. Die genaue Dauer hängt von der Kündigungsfrist Ihres aktuellen Vertrags ab.</p>
+            
+            <h4>Was passiert, wenn mein neuer Anbieter pleite geht?</h4>
+            <p>Sollte Ihr Stromanbieter insolvent werden, springt automatisch der lokale Grundversorger ein. Sie haben dann Zeit, in Ruhe einen neuen Anbieter zu wählen.</p>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="../index.html" class="btn btn-primary">Jetzt Stromtarife vergleichen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Stromtarifprofi.de</h3>
+                    <p>Ihr unabhängiger Stromtarifvergleich</p>
+                    <p>Über 12.000 Tarife von mehr als 1.100 Anbietern im Vergleich</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Schnellzugriff</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../stromtarife/index.html">Stromtarife</a></li>
+                        <li><a href="../oekostrom/index.html">Ökostrom</a></li>
+                        <li><a href="index.html" class="active">Ratgeber</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Informationen</h3>
+                    <ul>
+                        <li><a href="../ueber-uns/index.html">Über uns</a></li>
+                        <li><a href="../faq/index.html">FAQ</a></li>
+                        <li><a href="../KONTAKT/INDEX.html">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="../IMPRESSUM/INDEX.html">Impressum</a></li>
+                        <li><a href="../DATENSCHUTZ/INDEX.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Stromtarifprofi.de - Alle Rechte vorbehalten</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
