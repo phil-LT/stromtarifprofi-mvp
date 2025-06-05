@@ -1,13 +1,14 @@
-// Enhanced Form Handler with LeadHub Professional API Integration + Multi-Step Functionality
-// Version: 2.2 - Fixed for existing HTML structure
+// Enhanced Form Handler - WEITERLEITUNG DEAKTIVIERT für Lead-Diagnose
+// Version: 2.3 - NO REDIRECT
 
-console.log('🚀 Form Handler v2.2 - LeadHub API + Multi-Step (Fixed) loaded');
+console.log('🚀 Form Handler v2.3 - WEITERLEITUNG DEAKTIVIERT loaded');
 
 // Konfiguration
 const CONFIG = {
     LEADHUB_API_BASE: 'http://3.77.229.60:7860',
-    DEBUG_MODE: window.location.search.includes('debug=1' ),
-    FALLBACK_ENABLED: true
+    DEBUG_MODE: true, // PERMANENT AKTIVIERT
+    FALLBACK_ENABLED: true,
+    REDIRECT_DISABLED: true // WEITERLEITUNG KOMPLETT DEAKTIVIERT
 };
 
 // Multi-step form navigation
@@ -15,10 +16,8 @@ let currentStep = 1;
 const totalSteps = 3;
 
 // Debug-Logging
-function debugLog(message, data = null) {
-    if (CONFIG.DEBUG_MODE) {
-        console.log(`🔍 DEBUG: ${message}`, data);
-    }
+function debugLog(message, data = null ) {
+    console.log(`🔍 DEBUG: ${message}`, data);
 }
 
 // Initialize form functionality
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initCookieBanner();
     calculateSavings();
     
-    // Set up form submission
     const leadForm = document.getElementById('leadForm');
     if (leadForm) {
         leadForm.addEventListener('submit', handleFormSubmit);
@@ -35,32 +33,31 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.warn('⚠️ Lead-Formular nicht gefunden');
     }
+    
+    console.log('📊 LEAD-DIAGNOSE VERFÜGBAR:');
+    console.log('- showAllLeads() → Alle lokalen Leads anzeigen');
+    console.log('- createLeadAdminPanel() → Statistiken anzeigen');
+    console.log('- testLeadHubAPI() → API-Test durchführen');
 });
 
-// Multi-step form navigation - FIXED for existing HTML structure
+// Multi-step form navigation
 function initFormSteps() {
-    // Show first step initially
     showStep(currentStep);
-    
-    // Update progress indicators if they exist
     updateProgress();
 }
 
 function showStep(step) {
-    // Hide all steps - FIXED selectors for existing HTML
     document.querySelectorAll('.form-step').forEach(el => {
         el.style.display = 'none';
         el.classList.remove('active');
     });
     
-    // Show current step - FIXED to use existing IDs
     const currentStepEl = document.getElementById(`step${step}`);
     if (currentStepEl) {
         currentStepEl.style.display = 'block';
         currentStepEl.classList.add('active');
     }
     
-    // Update progress indicators if they exist
     updateProgress();
 }
 
@@ -82,33 +79,8 @@ function updateProgress() {
 // Cookie banner functionality
 function initCookieBanner() {
     const banner = document.getElementById('cookieBanner');
-    const acceptBtn = document.getElementById('acceptCookies');
-    const rejectBtn = document.getElementById('rejectCookies');
-    
-    // Show banner if no consent given
-    if (!localStorage.getItem('cookieConsent')) {
-        if (banner) banner.style.display = 'block';
-    }
-    
-    if (acceptBtn) {
-        acceptBtn.addEventListener('click', function() {
-            localStorage.setItem('cookieConsent', 'accepted');
-            if (banner) banner.style.display = 'none';
-            
-            // Initialize analytics if accepted
-            if (typeof gtag !== 'undefined') {
-                gtag('consent', 'update', {
-                    'analytics_storage': 'granted'
-                });
-            }
-        });
-    }
-    
-    if (rejectBtn) {
-        rejectBtn.addEventListener('click', function() {
-            localStorage.setItem('cookieConsent', 'rejected');
-            if (banner) banner.style.display = 'none';
-        });
+    if (!localStorage.getItem('cookieConsent') && banner) {
+        banner.style.display = 'block';
     }
 }
 
@@ -122,7 +94,6 @@ function calculateSavings() {
             const optimizedCost = Math.round(verbrauch * 0.25);
             const savings = currentCost - optimizedCost;
             
-            // Update savings display
             const currentCostEl = document.querySelector('.current-cost');
             const optimizedCostEl = document.querySelector('.optimized-cost');
             const savingsEl = document.querySelector('.savings-amount');
@@ -212,19 +183,16 @@ async function submitLeadToLeadHub(leadData) {
         }
         
         const result = await response.json();
-        debugLog('LeadHub API Response:', result);
-        
+        debugLog('✅ LeadHub API Response:', result);
         return result;
         
     } catch (error) {
         console.error('❌ LeadHub API Error:', error);
         
-        // Fallback: Lokale Speicherung
         if (CONFIG.FALLBACK_ENABLED) {
             debugLog('Aktiviere Fallback: Lokale Speicherung');
             saveLeadLocally(leadData);
             
-            // Simuliere erfolgreiche Response für Affiliate-Routing
             return {
                 success: true,
                 lead_id: Date.now(),
@@ -249,6 +217,10 @@ function saveLeadLocally(leadData) {
         });
         localStorage.setItem('leads', JSON.stringify(leads));
         console.log('💾 Lead lokal gespeichert:', leadData);
+        
+        console.log('📊 AKTUELLE LEAD-STATISTIKEN:');
+        createLeadAdminPanel();
+        
     } catch (error) {
         console.error('❌ Lokale Speicherung fehlgeschlagen:', error);
     }
@@ -256,7 +228,6 @@ function saveLeadLocally(leadData) {
 
 // Affiliate routing determination
 function determineAffiliateRouting(leadData) {
-    // Lead-Score berechnen
     let score = 50;
     
     try {
@@ -270,7 +241,6 @@ function determineAffiliateRouting(leadData) {
     if (leadData.e_auto) score += 25;
     if (leadData.smart_meter) score += 15;
     
-    // Routing-Entscheidung
     if (leadData.e_auto || leadData.smart_meter || score >= 80) {
         return {
             affiliate: 'RABOT Energy',
@@ -292,33 +262,28 @@ function determineAffiliateRouting(leadData) {
     }
 }
 
-// Form submission handler
+// Form submission handler - WEITERLEITUNG DEAKTIVIERT
 async function handleFormSubmit(e ) {
     e.preventDefault();
     debugLog('🚀 Lead-Submission gestartet');
     
     try {
-        // Final validation
         if (!validateCurrentStep()) {
             return;
         }
         
-        // Lead-Daten sammeln
         const leadData = collectLeadData();
         
-        // Submit-Button deaktivieren
         const submitButton = document.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         submitButton.disabled = true;
         submitButton.textContent = 'Wird verarbeitet...';
         
         try {
-            // Lead an LeadHub API senden
             const response = await submitLeadToLeadHub(leadData);
             
             debugLog('Lead erfolgreich verarbeitet:', response);
             
-            // Analytics-Event senden (falls verfügbar)
             if (typeof gtag !== 'undefined' && localStorage.getItem('cookieConsent') === 'accepted') {
                 gtag('event', 'lead_submission', {
                     'event_category': 'Lead',
@@ -327,28 +292,17 @@ async function handleFormSubmit(e ) {
                 });
             }
             
-            // Erfolgs-Feedback
-            if (CONFIG.DEBUG_MODE) {
-                alert(`✅ Lead erfolgreich verarbeitet!\n\nLead-ID: ${response.lead_id}\nAffiliate: ${response.affiliate}\nWeiterleitung: ${response.redirect_url}`);
-            }
+            // WEITERLEITUNG DEAKTIVIERT - Nur Erfolgs-Feedback
+            alert(`✅ Lead erfolgreich verarbeitet!\n\nLead-ID: ${response.lead_id}\nAffiliate: ${response.affiliate}\n\n🔍 DIAGNOSE:\n- Prüfen Sie die Browser-Console für Details\n- Verwenden Sie showAllLeads() für lokale Leads\n- Prüfen Sie LeadHub: ${CONFIG.LEADHUB_API_BASE}\n\n⚠️ WEITERLEITUNG DEAKTIVIERT für Diagnose`);
             
-            // Weiterleitung nach kurzer Verzögerung
-            setTimeout(() => {
-                if (response.redirect_url && !CONFIG.DEBUG_MODE) {
-                    window.location.href = response.redirect_url;
-                } else {
-                    debugLog('Weiterleitung deaktiviert (Debug-Modus)');
-                }
-            }, 1000);
+            // KEINE WEITERLEITUNG
+            debugLog('🚫 Weiterleitung deaktiviert für Diagnose-Zwecke');
             
         } catch (error) {
             console.error('❌ Lead-Submission fehlgeschlagen:', error);
-            
-            // Fehler-Feedback
-            alert('❌ Es gab ein Problem bei der Übertragung. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.');
+            alert(`❌ Lead-Submission fehlgeschlagen!\n\nFehler: ${error.message}\n\n🔍 DIAGNOSE:\n- Prüfen Sie die Browser-Console\n- LeadHub API: ${CONFIG.LEADHUB_API_BASE}\n- Fallback: Lokale Speicherung aktiv`);
             
         } finally {
-            // Submit-Button wieder aktivieren
             submitButton.disabled = false;
             submitButton.textContent = originalText;
         }
@@ -368,17 +322,14 @@ function toggleCheckbox(checkboxId) {
 }
 
 function updateRegionalInfo() {
-    // Placeholder for regional info updates
     debugLog('Regional info updated');
 }
 
 function updateConsumptionHint() {
-    // Placeholder for consumption hint updates
     debugLog('Consumption hint updated');
 }
 
 function updateAffiliateRouting() {
-    // Placeholder for affiliate routing updates
     debugLog('Affiliate routing updated');
 }
 
@@ -387,7 +338,6 @@ function acceptCookies() {
     const banner = document.getElementById('cookieBanner');
     if (banner) banner.style.display = 'none';
     
-    // Initialize analytics if accepted
     if (typeof gtag !== 'undefined') {
         gtag('consent', 'update', {
             'analytics_storage': 'granted'
@@ -404,6 +354,7 @@ function rejectCookies() {
 // Admin functions for local lead management
 function showAllLeads() {
     const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+    console.log('📊 ALLE LOKALEN LEADS:');
     console.table(leads);
     return leads;
 }
@@ -423,15 +374,34 @@ function createLeadAdminPanel() {
         fallback: leads.filter(l => l.fallback).length
     };
     
-    console.log('📊 Lead-Statistiken:', stats);
+    console.log('📊 LEAD-STATISTIKEN:', stats);
     console.table(leads);
     
     return stats;
 }
 
-// Global functions for console access and existing HTML compatibility
+// API-Diagnose-Funktionen
+function testLeadHubAPI() {
+    console.log('🔍 Teste LeadHub API...');
+    fetch(`${CONFIG.LEADHUB_API_BASE}/api/leads/stats`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(`HTTP ${response.status}`);
+        })
+        .then(data => {
+            console.log('✅ LeadHub API erreichbar:', data);
+        })
+        .catch(error => {
+            console.error('❌ LeadHub API nicht erreichbar:', error);
+        });
+}
+
+// Global functions
 window.showAllLeads = showAllLeads;
 window.createLeadAdminPanel = createLeadAdminPanel;
+window.testLeadHubAPI = testLeadHubAPI;
 window.nextStep = nextStep;
 window.prevStep = prevStep;
 window.toggleCheckbox = toggleCheckbox;
@@ -442,4 +412,4 @@ window.acceptCookies = acceptCookies;
 window.rejectCookies = rejectCookies;
 window.handleFormSubmit = handleFormSubmit;
 
-debugLog('🎯 Form Handler v2.2 vollständig geladen (Fixed for existing HTML)');
+debugLog('🎯 Form Handler v2.3 vollständig geladen (WEITERLEITUNG DEAKTIVIERT)');
